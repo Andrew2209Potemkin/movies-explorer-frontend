@@ -9,7 +9,7 @@ function Portfolio() {
       <nav className="portfolio__links-list">
         <a
           className="portfolio__link portfolio__link_underlined"
-          href="https://github.com/Andrew2209Potemkin/how-to-learn"
+          href="https://github.com/Andrew2209Potemkin/mesto"
           target="_blank"
           rel="noreferrer"
         >
