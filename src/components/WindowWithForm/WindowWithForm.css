@@ -65,6 +65,7 @@
   line-height: 12.1px;
   color: rgba(238, 52, 101, 1);
   margin-top: 7.9px;
+  min-height: 12.1px;
 }
 
 .window__form-item-error:last-of-type {
@@ -93,6 +94,12 @@
 
 .window__form-submit-btn:hover {
   opacity: 0.8;
+}
+
+.window__form-submit-btn_inactive {
+  background-color: rgba(248, 248, 248, 1);
+  color: rgba(194, 194, 194, 1);
+  pointer-events: none;
 }
 
 .window__text {

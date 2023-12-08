@@ -49,6 +49,7 @@
   line-height: 12.1px;
   color: rgba(238, 52, 101, 1);
   margin: 2px 0 1.9px;
+  min-height: 12.1px;
 }
 
 .profile__form-line {

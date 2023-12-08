@@ -1,0 +1,47 @@
+.search {
+  width: 100%;
+}
+
+.searh__error {
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: normal;
+  text-align: center;
+  max-width: 292px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.searh__error_center {
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .search {
+    max-width: 708px;
+  }
+
+  .searh__error {
+    max-width: 600px;
+    font-size: 18px;
+  }
+
+  .searh__error_center {
+    margin-top: 15px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .search {
+      max-width: 1200px;
+    }
+
+  .searh__error {
+    font-size: 28px;
+    max-width: 1200px;
+  }
+
+  .searh__error_center {
+    margin-top: 22px;
+  }
+}
