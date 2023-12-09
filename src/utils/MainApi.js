@@ -1,13 +1,15 @@
 class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then(this._checkAnswer);
   }
@@ -15,7 +17,10 @@ class MainApi {
   updateUserInfo(email, name) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ email, name }),
     })
       .then(this._checkAnswer);
@@ -24,7 +29,10 @@ class MainApi {
   getMovies() {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then(this._checkAnswer);
   }
@@ -32,7 +40,10 @@ class MainApi {
   createMovie(data) {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         country: data.country,
         director: data.director,
@@ -54,7 +65,10 @@ class MainApi {
   deleteMovie(cardId) {
     return fetch(`${this._baseUrl}/movies/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then(this._checkAnswer);
   }
@@ -102,10 +116,6 @@ class MainApi {
 
 const api = new MainApi({
   baseUrl: 'https://api.potemkin.nomoredomainsmonster.ru',
-  headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    'Content-Type': 'application/json',
-  },
 })
 
 export default api;

@@ -25,6 +25,19 @@ function App() {
   const [isInfoToolTipOpen, setInfoToolTipOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      Promise.all([api.getUserInfo(), api.getMovies()])
+        .then(([userData, movies]) => {
+          setCurrentUser(userData);
+          setSavedMovies(movies);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }, [isLoggedIn]);
+
   function closeInfoToolTip() {
     setInfoToolTipOpen(false);
   };
@@ -130,6 +143,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt")
+    console.log(jwt)
     if (jwt) {
       api.checkToken(jwt)
         .then((res) => {
@@ -145,25 +159,6 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      api.getUserInfo()
-        .then((res) => {
-          setCurrentUser(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-      api.getMovies()
-        .then((movies) => {
-          setSavedMovies(movies)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  }, [isLoggedIn]);
 
   useEffect(() => {
     function handleEsc(evt) {

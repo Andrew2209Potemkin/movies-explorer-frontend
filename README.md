@@ -17,7 +17,7 @@ https://github.com/Andrew2209Potemkin/movies-explorer-frontend
 
 ## Ссылка на Pull request:
 
-https://github.com/Andrew2209Potemkin/movies-explorer-frontend/pulls
+https://github.com/Andrew2209Potemkin/movies-explorer-frontend/pull/2
 
 ## Ссылка на проект:
 IP 84.201.156.163
