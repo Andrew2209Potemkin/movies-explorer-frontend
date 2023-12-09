@@ -1,5 +1,5 @@
 const emailRegex = "[a-zA-Z0-9_.]+@[a-zA-Z0-9_]+\\.[a-z]{2,}";
-const nameRegex = "^[A-Za-zА-Яа-яЁё /s -]+$";
+const nameRegex = "[а-яА-ЯёЁa-zA-Z -]+";
 
 
 const screen = window.innerWidth;
