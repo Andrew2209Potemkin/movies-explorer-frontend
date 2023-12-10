@@ -75,6 +75,11 @@
   opacity: 0.8;
 }
 
+.profile__edit-btn_inactive {
+  pointer-events: none;
+  color: rgba(66, 66, 66, 1);
+}
+
 .profile__exit-btn {
   margin: 16px 0 0;
   padding: 0;

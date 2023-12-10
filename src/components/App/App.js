@@ -13,6 +13,7 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Header from "../Header/Header";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltipProfile from "../InfoToolTipProfile/InfoToolTipProfile";
 
 function App() {
   const location = useLocation();
@@ -23,7 +24,9 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isInfoToolTipOpen, setInfoToolTipOpen] = useState(false);
+  const [isInfoToolTipProfileOpen, setInfoToolTipProfileOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -38,13 +41,14 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  function closeInfoToolTip() {
+  function closeAllPopus() {
     setInfoToolTipOpen(false);
+    setInfoToolTipProfileOpen(false);
   };
 
   function handleOverlay(evt) {
     if (evt.target === evt.currentTarger) {
-      closeInfoToolTip();
+      closeAllPopus();
     };
   };
 
@@ -106,9 +110,13 @@ function App() {
     setIsLoading(true)
     api.updateUserInfo(email, name)
       .then((res) => {
+        setIsUpdate(true);
+        setInfoToolTipProfileOpen(true);
         setCurrentUser(res);
       })
       .catch((err) => {
+        setIsUpdate(false);
+        setInfoToolTipProfileOpen(false);
         console.log(err);
         handleUnauthorizedError(err);
       })
@@ -163,7 +171,7 @@ function App() {
   useEffect(() => {
     function handleEsc(evt) {
       if (evt.key === "Escape") {
-        closeInfoToolTip();
+        closeAllPopus();
       }
     }
     if (isInfoToolTipOpen) {
@@ -238,7 +246,13 @@ function App() {
         <InfoTooltip
           isOpen={isInfoToolTipOpen}
           isSuccess={isSuccess}
-          onClose={closeInfoToolTip}
+          onClose={closeAllPopus}
+          handleOverlay={handleOverlay}
+        />
+        <InfoTooltipProfile
+          isOpen={isInfoToolTipProfileOpen}
+          isUpdate={isUpdate}
+          onClose={closeAllPopus}
           handleOverlay={handleOverlay}
         />
       </div>

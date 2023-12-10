@@ -21,6 +21,14 @@ export function useForm() {
     const input = evt.target;
     const value = input.value;
     const name = input.name;
+    if (input.name === 'name') {
+      const validityState = input.validity;
+      if (validityState.patternMismatch) {
+        input.setCustomValidity("Имя не должно содержать чисел, спецсимволов и пробелов.");
+      } else {
+        input.setCustomValidity('');
+      }
+    }
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest('form').checkValidity());

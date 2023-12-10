@@ -14,6 +14,7 @@ function Movies({ loggedIn, handleDeleteMovie, handleSaveMovie, savedMovies }) {
   const [isLoading, setIsLoading] = useState(false);
   const [initialCardsMovies, setInitialCardsMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [refreshMovies, setRefreshMovies] = useState(false);
 
 
   function handleShortFilm() {
@@ -100,6 +101,7 @@ function Movies({ loggedIn, handleDeleteMovie, handleSaveMovie, savedMovies }) {
         searchAndFilterMovies={searchMovies}
         onFilterMovies={handleShortFilm}
         isShortFilm={isShortFilm}
+        refreshMovies={bool => setRefreshMovies(bool)}
       />
       <MoviesCardList
         savedMovies={savedMovies}
@@ -110,7 +112,8 @@ function Movies({ loggedIn, handleDeleteMovie, handleSaveMovie, savedMovies }) {
         isSavedItems={false}
         handleDeleteMovie={handleDeleteMovie}
         handleSaveMovie={handleSaveMovie}
-
+        refreshMovies={refreshMovies}
+        setRefreshMovies={() => setRefreshMovies(false)}
       />
       <Footer />
     </section>

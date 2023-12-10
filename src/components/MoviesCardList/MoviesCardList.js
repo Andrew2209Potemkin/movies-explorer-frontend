@@ -3,12 +3,11 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import SearchError from "../SearchError/SearchError";
-import { useLocation } from "react-router-dom";
+
 import {
   wideScreenLimit,
   mediumScreenLimit,
-  smallScreenLimit,
-  screen,
+  smallScreenLimit
 } from "../../utils/constants";
 
 function MoviesCardList({
@@ -20,43 +19,68 @@ function MoviesCardList({
   isSavedItems,
   handleDeleteMovie,
   handleSaveMovie,
+  refreshMovies,
+  setRefreshMovies,
 }) {
-  const pathname = useLocation();
+
   const [quantityMovies, setQuantityMovies] = useState(0);
+  const [screen, setScreen] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", showMovies);
+    return () => {
+      window.removeEventListener("resize", showMovies);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function getMovies(savedMovies, card) {
     return savedMovies.find((movie) => movie.movieId === card.id);
   };
 
+  useEffect(() => {
+    if (refreshMovies) {
+      setRefreshMovies();
+      showMovies();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshMovies, setRefreshMovies])
+
+  useEffect(() => {
+    const handleResize = (event) => {
+      setScreen(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    showMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen]);
+
   function showMovies() {
-    if (screen > 1180) {
+    if (screen >= 1280) {
       setQuantityMovies(12);
-    } else if (screen > 767) {
+    }
+    else if (screen >= 768 && screen < 1280) {
       setQuantityMovies(8);
-    } else {
+    } else if (screen >= 320 && screen < 768) {
       setQuantityMovies(5);
     }
   };
 
   function enlargeScreen() {
-    if (screen > 1280) {
+    if (screen >= 1280) {
       setQuantityMovies(quantityMovies + wideScreenLimit);
-    } else if (screen > 768) {
+    } else if (screen >= 768 && screen < 1280) {
       setQuantityMovies(quantityMovies + mediumScreenLimit);
-    } else {
+    } else if (screen >= 320 && screen < 768) {
       setQuantityMovies(quantityMovies + smallScreenLimit);
     }
   };
-
-  useEffect(() => {
-    showMovies()
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      window.addEventListener("resize", showMovies)
-    }, 500)
-  });
 
   return (
     <section className="card-list">
@@ -71,20 +95,23 @@ function MoviesCardList({
       )}
       {!isLoading && !isReqError && !isNotFound && (
         <>
-          {pathname === "/saved-movies" ? (
-            <ul className="card-list__container">
-              {cards.map((card) => (
-                <MoviesCard
-                  key={isSavedItems ? card._id : card.id}
-                  saved={getMovies(savedMovies, card)}
-                  card={card}
-                  cards={cards}
-                  isSavedItems={isSavedItems}
-                  savedMovies={savedMovies}
-                  handleDeleteMovie={handleDeleteMovie}
-                  handleSaveMovie={handleSaveMovie}
-                />))}
-            </ul>
+          {isSavedItems ? (
+            <>
+              <ul className="card-list__container">
+                {cards.map((card) => (
+                  <MoviesCard
+                    key={isSavedItems ? card._id : card.id}
+                    saved={getMovies(savedMovies, card)}
+                    card={card}
+                    cards={cards}
+                    isSavedItems={isSavedItems}
+                    savedMovies={savedMovies}
+                    handleDeleteMovie={handleDeleteMovie}
+                    handleSaveMovie={handleSaveMovie}
+                  />
+                ))}
+              </ul>
+            </>
           ) : (
             <>
               <ul className="card-list__container">

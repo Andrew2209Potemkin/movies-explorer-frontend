@@ -42,7 +42,7 @@ function MoviesCard({ card, handleDeleteMovie, saved, handleSaveMovie, savedMovi
         ? (
           <button
             type="button"
-            className="card__save-btn card__save-btn_disactive"
+            className="card__delete-btn"
             onClick={onDelete}
           >
             Сохранить

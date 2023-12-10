@@ -38,6 +38,8 @@ function Register({ onRegister, isLoading }) {
         onChange={handleChange}
         value={values.name || ""}
         pattern={nameRegex}
+        minLength="2"
+        maxLength="30"
       />
       <span className="window__form-item-error">{errors.name}</span>
       <label className="window__form-label" htmlFor="useremail">E-mail</label>

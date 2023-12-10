@@ -4,7 +4,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useLocation } from "react-router-dom";
 
 
-function SearchForm({ isShortFilm, searchAndFilterMovies, onFilterMovies }) {
+function SearchForm({ isShortFilm, searchAndFilterMovies, onFilterMovies, refreshMovies }) {
   const location = useLocation();
   const [search, setSearch] = useState("");
   const [isSearchError, setIsSearchError] = useState(false);
@@ -16,6 +16,7 @@ function SearchForm({ isShortFilm, searchAndFilterMovies, onFilterMovies }) {
     } else {
       setIsSearchError(false);
       searchAndFilterMovies(search);
+      refreshMovies(true);
     }
   };
 

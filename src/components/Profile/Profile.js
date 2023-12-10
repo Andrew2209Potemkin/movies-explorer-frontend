@@ -60,7 +60,7 @@ function Profile({ onUpdateUser, loggedIn, isLoading, signOut }) {
               pattern={nameRegex}
             />
           </label>
-          <span className="profile__form-item-error">{errors.name}</span>
+          <span className="profile__form-item-error">{errors.name || ''}</span>
           <div className="profile__form-line"></div>
           <label className="profile__form-label">
             E-mail
@@ -80,7 +80,7 @@ function Profile({ onUpdateUser, loggedIn, isLoading, signOut }) {
           <button
             className={
               !isValid || isLoading || isValidForm
-                ? "profile__edit-btn window__form-submit-btn_inactive"
+                ? "profile__edit-btn profile__edit-btn_inactive"
                 : "profile__edit-btn"
             }
             type="submit"
