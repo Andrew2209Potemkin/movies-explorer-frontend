@@ -49,6 +49,7 @@
   line-height: 12.1px;
   color: rgba(238, 52, 101, 1);
   margin: 2px 0 1.9px;
+  min-height: 12.1px;
 }
 
 .profile__form-line {
@@ -72,6 +73,11 @@
 
 .profile__edit-btn:hover {
   opacity: 0.8;
+}
+
+.profile__edit-btn_inactive {
+  pointer-events: none;
+  color: rgba(66, 66, 66, 1);
 }
 
 .profile__exit-btn {

@@ -1,37 +1,28 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
-  const location = useLocation();
+function Header({ loggedIn }) {
   const [isClicked, setIsClicked] = React.useState(false);
+
+  const changeLinkWeight = ({ isActive }) =>
+    isActive
+      ? "header__link-movies header__link-movies_active"
+      : "header__link-movies"
 
   function handleOpenMenu() {
     setIsClicked(true);
-  }
+  };
 
   function handleCloseMenu() {
     setIsClicked(false);
-  }
+  };
 
-  function useAuthHeader() {
-    const { pathname } = location;
-    return pathname === "/"
-  }
-
-  function useLogHeader() {
-    const { pathname } = location;
-    return (
-      pathname === "/profile" ||
-      pathname === "/movies" ||
-      pathname === "/saved-movies"
-    )
-  }
   return (
     <>
-      {useAuthHeader() && (
+      {!loggedIn ? (
         <header className="header">
           <Link to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
@@ -41,17 +32,15 @@ function Header() {
             <Link to="/signin" className="header__link-log">Войти</Link>
           </div>
         </header>
-      )}
-
-      {useLogHeader() && (
+      ) : (
         <header className="header">
           <Link to="/">
             <img className="header__logo" src={headerLogo} alt="Логотип" />
           </Link>
           <div className="header__wrapper">
             <div className="header__container">
-              <Link to="/movies" className="header__link-movies">Фильмы</Link>
-              <Link to="/saved-movies" className="header__link-movies">Сохраненные фильмы</Link>
+              <NavLink to="/movies" className={changeLinkWeight}>Фильмы</NavLink>
+              <NavLink to="/saved-movies" className={changeLinkWeight}>Сохраненные фильмы</NavLink>
             </div>
             <Link to="/profile" className="header__link-account">Аккаунт</Link>
           </div>
